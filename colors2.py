@@ -2,8 +2,8 @@ import pygame
 import random
 
 # 初期設定
-rows, cols = 4, 3
-cell_size = 100
+rows, cols = 40, 30
+cell_size = 20
 
 pygame.init()
 screen = pygame.display.set_mode((cols * cell_size, rows * cell_size))

@@ -1,0 +1,31 @@
+20260403
+
+shimada@shimadaMacL-2 LearnPython % git pull
+
+shimada@shimadaMacL-2 LearnPython % python3 colors2.py
+->ModuleNotFoundError: No module named 'pygame'
+
+shimada@shimadaMacL-2 LearnPython % python3 -m pip install pygame
+error: externally-managed-environment
+「OSやパッケージマネージャが管理してるPythonだから勝手にpipでいじるな」
+
+python3 -m venv venv
+source venv/bin/activate
+
+(venv) shimada@shimadaMacL-2 LearnPython % になった
+
+pip install pygame
+error: failed-wheel-build-for-install
+
+pip install --upgrade pip setuptools wheel
+pip install pygame
+error: failed-wheel-build-for-install
+まだだめ
+
+Pythonのバージョンが新しすぎる
+
+pip install pygame-ce
+
+仮想環境への出入り
+source venv/bin/activate
+deactivate
