@@ -2,8 +2,8 @@ import pygame
 import random
 
 # 初期設定
-rows, cols = 40, 30
-cell_size = 20
+rows, cols = 80, 120
+cell_size = 10
 
 pygame.init()
 screen = pygame.display.set_mode((cols * cell_size, rows * cell_size))
@@ -14,6 +14,14 @@ grid = [
     [ [random.randint(0,255) for _ in range(3)] for _ in range(cols)]
     for _ in range(rows)
 ]
+
+def sumgrid(grid):
+    sumgrid=[]
+    for r in range(rows):
+        row = []
+        for c in range(cols):
+            
+    return sumgrid;
 
 def next_grid(grid):
     new_grid = []

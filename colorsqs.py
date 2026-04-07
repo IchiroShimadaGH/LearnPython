@@ -1,8 +1,8 @@
 from PIL import Image, ImageDraw
 import random
 
-cell_size = 100
-cols, rows = 3, 4
+cell_size = 50
+cols, rows = 6, 8
 
 img = Image.new("RGB", (cols * cell_size, rows * cell_size))
 draw = ImageDraw.Draw(img)
