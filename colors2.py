@@ -2,8 +2,13 @@ import pygame
 import random
 
 # 初期設定
-rows, cols = 80, 120
-cell_size = 10
+rows, cols = 100, 150
+cell_size = 7
+th =50
+noise=0 
+timeunit=100
+dist=2
+maxormin=2
 
 pygame.init()
 screen = pygame.display.set_mode((cols * cell_size, rows * cell_size))
@@ -15,13 +20,19 @@ grid = [
     for _ in range(rows)
 ]
 
-def sumgrid(grid):
-    sumgrid=[]
-    for r in range(rows):
-        row = []
-        for c in range(cols):
-            
-    return sumgrid;
+def mate(rgb1, rgb2):
+    diff=[abs(a- b) for a, b in zip(rgb1, rgb2)]
+    if max(diff)>=th:
+        return([0,0,0])
+    else:
+        newrgb=[];
+        for a, b in zip(rgb1, rgb2):
+            rr=random.randint(0,maxormin-1)
+            if rr==0:
+                newrgb.append(min(a,b))
+            else:
+                newrgb.append(max(a,b))
+        return(newrgb)
 
 def next_grid(grid):
     new_grid = []
@@ -29,23 +40,37 @@ def next_grid(grid):
     for r in range(rows):
         row = []
         for c in range(cols):
-            # 近傍の平均色に少しランダムを足す
+            if grid[r][c]==[0,0,0]:
+                nn=2
+            else:
+                nn=1
+            
             neighbors = []
+            for dr in range(-dist, dist+1):
+                nr = r+dr 
+                for dc in range(-dist, dist+1):
+                    nc = c+dc
+                    if 0 <= nr < rows and 0 <= nc < cols and (dr!=0 or dc!=0):
+                        if grid[nr][nc]!=[0,0,0]:
+                            neighbors.append([nr, nc])
+            
+            if len(neighbors)>=nn:
+                parents=random.sample(neighbors, nn)
+                if nn==1:
+                    parents.append([r, c])
+            
+            # print(parents)
+            # print(parents[1])
+            # print(len(parents[1]))
+            # print(parents[1][1], parents[1][2])
+            # print(len(grid), len(grid[0]))
 
-            for dr in [-1,0,1]:
-                for dc in [-1,0,1]:
-                    nr, nc = r+dr, c+dc
-                    if 0 <= nr < rows and 0 <= nc < cols:
-                        neighbors.append(grid[nr][nc])
+            rgb1=grid[parents[0][0]][parents[0][1]]
+            rgb2=grid[parents[1][0]][parents[1][1]]
+            newrgd=mate(rgb1, rgb2)
 
-            avg = [
-                sum(n[i] for n in neighbors)//len(neighbors)
-                for i in range(3)
-            ]
-
-            # 少しランダムに揺らす
             new_color = [
-                min(255, max(0, avg[i] + random.randint(-20,20)))
+                min(255, max(0, newrgd[i] + random.randint(-3,3)))
                 for i in range(3)
             ]
 
@@ -63,13 +88,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # 1秒ごとに更新
     timer += clock.get_time()
-    if timer > 1000:
+    if timer > timeunit:
         grid = next_grid(grid)
         timer = 0
 
-    # 描画
     for r in range(rows):
         for c in range(cols):
             color = grid[r][c]
