@@ -4,11 +4,11 @@ import random
 # 初期設定
 rows, cols = 100, 150
 cell_size = 7
-th =50
-noise=0 
+th =80
+noise=1 
 timeunit=100
-dist=2
-maxormin=2
+dist=1
+maxormin=3
 
 pygame.init()
 screen = pygame.display.set_mode((cols * cell_size, rows * cell_size))
@@ -19,6 +19,10 @@ grid = [
     [ [random.randint(0,255) for _ in range(3)] for _ in range(cols)]
     for _ in range(rows)
 ]
+# grid = [
+#      [ [100,100,100] for _ in range(cols)]
+#      for _ in range(rows)
+#  ]
 
 def mate(rgb1, rgb2):
     diff=[abs(a- b) for a, b in zip(rgb1, rgb2)]
@@ -59,18 +63,21 @@ def next_grid(grid):
                 if nn==1:
                     parents.append([r, c])
             
-            # print(parents)
-            # print(parents[1])
-            # print(len(parents[1]))
-            # print(parents[1][1], parents[1][2])
-            # print(len(grid), len(grid[0]))
+                # print(parents)
+                # print(parents[1])
+                # print(len(parents[1]))
+                # print(parents[1][1], parents[1][2])
+                # print(len(grid), len(grid[0]))
 
-            rgb1=grid[parents[0][0]][parents[0][1]]
-            rgb2=grid[parents[1][0]][parents[1][1]]
-            newrgd=mate(rgb1, rgb2)
+                rgb1=grid[parents[0][0]][parents[0][1]]
+                rgb2=grid[parents[1][0]][parents[1][1]]
+                newrgd=mate(rgb1, rgb2)
+            else:
+                newrgd=[0,0,0]
+
 
             new_color = [
-                min(255, max(0, newrgd[i] + random.randint(-3,3)))
+                min(255, max(0, newrgd[i] + random.randint(-noise,noise)))
                 for i in range(3)
             ]
 
