@@ -5,7 +5,7 @@ import random
 rows, cols = 100, 150
 cell_size = 7
 th =40
-noise=0 
+noise=1
 timeunit=100
 dist=1
 maxormin=4

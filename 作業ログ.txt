@@ -29,3 +29,10 @@ pip install pygame-ce
 仮想環境への出入り
 source venv/bin/activate
 deactivate
+
+git add .
+git config --global user.name "Ichiro Shimada"
+git config --global user.email "ichiro.shimada@email.com"
+
+git commit -m "test20260403"
+
